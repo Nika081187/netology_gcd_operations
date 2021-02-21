@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		060782B2250CE27700A87020 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 060782B1250CE27700A87020 /* AppDelegate.swift */; };
 		060782B6250CE27700A87020 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 060782B5250CE27700A87020 /* FeedViewController.swift */; };
-		060782BB250CE27A00A87020 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 060782BA250CE27A00A87020 /* Assets.xcassets */; };
 		060782BE250CE27A00A87020 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 060782BC250CE27A00A87020 /* LaunchScreen.storyboard */; };
 		060782C6250CEB0A00A87020 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 060782C5250CEB0A00A87020 /* InfoViewController.swift */; };
 		060782C8250CEE5D00A87020 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 060782C7250CEE5D00A87020 /* PostViewController.swift */; };
@@ -30,6 +29,7 @@
 		280B8E7A25D83B2300A798FD /* InfoCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280B8E7825D83B2300A798FD /* InfoCoordinator.swift */; };
 		280B8E8225D8421B00A798FD /* PhotosCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280B8E8125D8421B00A798FD /* PhotosCoordinator.swift */; };
 		280B8E8325D8421B00A798FD /* PhotosCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280B8E8125D8421B00A798FD /* PhotosCoordinator.swift */; };
+		280FE3E525E2A0F300F47BD6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 060782BA250CE27A00A87020 /* Assets.xcassets */; };
 		281F130C258A153E0035822E /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281F130B258A153E0035822E /* PhotosTableViewCell.swift */; };
 		281F130F258A15940035822E /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281F130E258A15940035822E /* PhotosCollectionViewCell.swift */; };
 		284AE2F125B0C49E00027E09 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 060782B5250CE27700A87020 /* FeedViewController.swift */; };
@@ -252,8 +252,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				280FE3E525E2A0F300F47BD6 /* Assets.xcassets in Resources */,
 				060782BE250CE27A00A87020 /* LaunchScreen.storyboard in Resources */,
-				060782BB250CE27A00A87020 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

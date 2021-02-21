@@ -9,6 +9,14 @@
 import UIKit
 
 class PhotosCollectionViewCell: UICollectionViewCell {
+    
+    private lazy var spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView()
+        spinner.color = .gray
+        spinner.center = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height/2)
+        return spinner
+    }()
+    
     private lazy var photoImage: UIImageView = {
         let photoImage = UIImageView()
         photoImage.toAutoLayout()
@@ -16,9 +24,53 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         return photoImage
     }()
     
-    public func configure(image: UIImage){
-        photoImage.image = image
-        photoImage.contentMode = .scaleToFill
+    public var imageName: String? {
+        didSet {
+            photoImage.image = nil
+            updateUIPath()
+        }
+    }
+    
+    public var imageUrl: String? {
+        didSet {
+            photoImage.image = nil
+            updateUIUrl()
+        }
+    }
+    
+    private func updateUIPath() {
+        if let name = imageName {
+            spinner.startAnimating()
+            DispatchQueue.global(qos: .userInitiated).async {
+                DispatchQueue.main.async {
+                    self.photoImage.image = UIImage(imageLiteralResourceName: name)
+                    self.photoImage.contentMode = .scaleToFill
+                    self.spinner.stopAnimating()
+                }
+            }
+        }
+    }
+    
+    private func updateUIUrl() {
+        if let url = imageUrl {
+            addSubview(spinner)
+            spinner.startAnimating()
+            DispatchQueue.global(qos: .userInitiated).async {
+                let task = URLSession.shared.downloadTask(with: URL(string: url)!) { localURL, urlResponse, error in
+                    if let url = localURL {
+                        if let image = try? Data(contentsOf: url) {
+                            DispatchQueue.main.async {
+                                self.photoImage.image = UIImage(data: image)
+                                self.photoImage.contentMode = .scaleToFill
+                                print("Download OK")
+                                self.spinner.stopAnimating()
+                            }
+                        }
+                    }
+                }
+                task.resume()
+            }
+        }
     }
     
     override init(frame: CGRect) {
