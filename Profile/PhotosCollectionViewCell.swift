@@ -24,13 +24,6 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         return photoImage
     }()
     
-    public var imageName: String? {
-        didSet {
-            photoImage.image = nil
-            updateUIPath()
-        }
-    }
-    
     public var imageUrl: String? {
         didSet {
             photoImage.image = nil
@@ -38,38 +31,20 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    private func updateUIPath() {
-        if let name = imageName {
-            spinner.startAnimating()
-            DispatchQueue.global(qos: .userInitiated).async {
-                DispatchQueue.main.async {
-                    self.photoImage.image = UIImage(imageLiteralResourceName: name)
-                    self.photoImage.contentMode = .scaleToFill
-                    self.spinner.stopAnimating()
-                }
-            }
-        }
-    }
-    
     private func updateUIUrl() {
         if let url = imageUrl {
             addSubview(spinner)
             spinner.startAnimating()
-            DispatchQueue.global(qos: .userInitiated).async {
-                let task = URLSession.shared.downloadTask(with: URL(string: url)!) { localURL, urlResponse, error in
-                    if let url = localURL {
-                        if let image = try? Data(contentsOf: url) {
-                            DispatchQueue.main.async {
-                                self.photoImage.image = UIImage(data: image)
-                                self.photoImage.contentMode = .scaleToFill
-                                print("Download OK")
-                                self.spinner.stopAnimating()
-                            }
-                        }
+            let task = URLSession.shared.downloadTask(with: URL(string: url)!) { localURL, urlResponse, error in
+                guard let url = localURL, let image = try? Data(contentsOf: url) else { return }
+                    DispatchQueue.main.async { [weak self] in
+                        self?.photoImage.image = UIImage(data: image)
+                        self?.photoImage.contentMode = .scaleToFill
+                        print("Download OK")
+                        self?.spinner.stopAnimating()
                     }
                 }
-                task.resume()
-            }
+            task.resume()
         }
     }
     
@@ -87,10 +62,10 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(photoImage)
         
         NSLayoutConstraint.activate([
-            contentView.topAnchor.constraint(equalTo: topAnchor),
-            contentView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: bottomAnchor),
+//            contentView.topAnchor.constraint(equalTo: topAnchor),
+//            contentView.leadingAnchor.constraint(equalTo: leadingAnchor),
+//            contentView.trailingAnchor.constraint(equalTo: trailingAnchor),
+//            contentView.bottomAnchor.constraint(equalTo: bottomAnchor),
 
             photoImage.topAnchor.constraint(equalTo: contentView.topAnchor),
             photoImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
