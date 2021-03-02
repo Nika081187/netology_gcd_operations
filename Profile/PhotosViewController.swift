@@ -63,14 +63,12 @@ class PhotosViewController: UIViewController {
 
 extension PhotosViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return PhotoStorage().photos.count
+        return PhotoStorage().photoUrl.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: PhotosCollectionViewCell = photoCollectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PhotosCollectionViewCell.self), for: indexPath) as! PhotosCollectionViewCell
-
-        let image = PhotoStorage().photos[indexPath.item]
-        cell.configure(image: image)
+        cell.imageUrl = PhotoStorage().photoUrl[indexPath.item]
         return cell
     }
 }
